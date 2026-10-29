@@ -9,7 +9,7 @@ the same role shows up on LinkedIn, on Indeed, and on the company's own careers 
 and now you have three near-duplicates to reconcile across three different schemas.
 
 This CLI queries the **public ATS boards** of any company (Greenhouse, Lever, Ashby,
-SmartRecruiters, Workday, Recruitee, Workable) **and** LinkedIn's public job search,
+SmartRecruiters, Workday, Recruitee, Workable, BambooHR) **and** LinkedIn's public job search,
 then **merges the duplicates**: the same role collapses into one canonical record
 with a `sources[]` array listing every place it appeared and the union of the richest
 fields.
@@ -75,7 +75,7 @@ Job feeds drift silently: a renamed field returns rows with `null` titles, a mov
 endpoint returns zero — the run "succeeds" but the data is junk. A scheduled probe
 runs **daily** ([`.github/workflows/freshness.yml`](.github/workflows/freshness.yml)),
 hitting a large live canary per source and grading reachable / populated /
-schema-intact. The seven ATS adapters are hard-gated; LinkedIn's guest endpoint is
+schema-intact. The eight ATS adapters are hard-gated; LinkedIn's guest endpoint is
 advisory (it rate-limits cloud IPs, so a block never raises a false alarm — only a
 genuine card-HTML reshape does). On real drift the probe opens a tracking issue, so
 breakage is caught before it reaches your run. Run it yourself any time:

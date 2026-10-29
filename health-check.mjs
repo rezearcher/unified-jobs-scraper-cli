@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Live source-health / schema-drift check for the aggregator's inputs: seven ATS
+// Live source-health / schema-drift check for the aggregator's inputs: eight ATS
 // adapters (hard-gated) and the LinkedIn public guest search (advisory). Each
 // source exposes a keyless public feed whose shape can drift silently — a
 // renamed field returns rows with null title/url, a moved endpoint returns zero —
@@ -15,7 +15,7 @@
 // health-status.json, and EXITS NON-ZERO on drift so the scheduled workflow
 // opens a maintenance issue.
 //
-// GATING: the seven ATS adapters are hard gates. LinkedIn's guest endpoint
+// GATING: the eight ATS adapters are hard gates. LinkedIn's guest endpoint
 // rate-limits unpredictably from cloud IPs (a CI runner is often blocked), so a
 // LinkedIn DOWN/EMPTY is ADVISORY (reported, never fails the run) — only a clear
 // LinkedIn SCHEMA_DRIFT (cards returned but key fields gone) gates, because that
@@ -34,6 +34,7 @@ const ATS_CANARIES = {
   workday: 'nvidia.wd5:NVIDIAExternalCareerSite',
   recruitee: 'bunq',
   workable: 'epignosis',
+  bamboohr: 'greenhousejuice',
 };
 const LINKEDIN_CANARY = { keywords: 'software engineer', location: 'United States' };
 

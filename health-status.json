@@ -1,0 +1,153 @@
+{
+  "generated_at": "2026-10-29T10:23:12.832Z",
+  "tool": "unified-jobs-scraper-cli",
+  "sources_total": 9,
+  "sources_ok": 9,
+  "gating_failures": [],
+  "healthy": true,
+  "results": [
+    {
+      "source": "greenhouse",
+      "family": "ats",
+      "canary": "stripe",
+      "checked_at": "2026-10-29T10:23:06.016Z",
+      "gating": true,
+      "verdict": "OK",
+      "count": 724,
+      "field_presence": {
+        "id": 1,
+        "title": 1,
+        "url": 1
+      },
+      "elapsed_ms": 293,
+      "detail": "healthy: 724 records, key fields intact"
+    },
+    {
+      "source": "lever",
+      "family": "ats",
+      "canary": "palantir",
+      "checked_at": "2026-10-29T10:23:06.309Z",
+      "gating": true,
+      "verdict": "OK",
+      "count": 304,
+      "field_presence": {
+        "id": 1,
+        "title": 1,
+        "url": 1
+      },
+      "elapsed_ms": 985,
+      "detail": "healthy: 304 records, key fields intact"
+    },
+    {
+      "source": "ashby",
+      "family": "ats",
+      "canary": "openai",
+      "checked_at": "2026-10-29T10:23:07.294Z",
+      "gating": true,
+      "verdict": "OK",
+      "count": 812,
+      "field_presence": {
+        "id": 1,
+        "title": 1,
+        "url": 1
+      },
+      "elapsed_ms": 468,
+      "detail": "healthy: 812 records, key fields intact"
+    },
+    {
+      "source": "smartrecruiters",
+      "family": "ats",
+      "canary": "Experian",
+      "checked_at": "2026-10-29T10:23:07.762Z",
+      "gating": true,
+      "verdict": "OK",
+      "count": 50,
+      "field_presence": {
+        "id": 1,
+        "title": 1,
+        "url": 1
+      },
+      "elapsed_ms": 841,
+      "detail": "healthy: 50 records, key fields intact"
+    },
+    {
+      "source": "workday",
+      "family": "ats",
+      "canary": "nvidia.wd5:NVIDIAExternalCareerSite",
+      "checked_at": "2026-10-29T10:23:08.603Z",
+      "gating": true,
+      "verdict": "OK",
+      "count": 40,
+      "field_presence": {
+        "id": 1,
+        "title": 1,
+        "url": 1
+      },
+      "elapsed_ms": 2342,
+      "detail": "healthy: 40 records, key fields intact"
+    },
+    {
+      "source": "recruitee",
+      "family": "ats",
+      "canary": "bunq",
+      "checked_at": "2026-10-29T10:23:10.945Z",
+      "gating": true,
+      "verdict": "OK",
+      "count": 22,
+      "field_presence": {
+        "id": 1,
+        "title": 1,
+        "url": 1
+      },
+      "elapsed_ms": 560,
+      "detail": "healthy: 22 records, key fields intact"
+    },
+    {
+      "source": "workable",
+      "family": "ats",
+      "canary": "epignosis",
+      "checked_at": "2026-10-29T10:23:11.505Z",
+      "gating": true,
+      "verdict": "OK",
+      "count": 12,
+      "field_presence": {
+        "id": 1,
+        "title": 1,
+        "url": 1
+      },
+      "elapsed_ms": 267,
+      "detail": "healthy: 12 records, key fields intact"
+    },
+    {
+      "source": "bamboohr",
+      "family": "ats",
+      "canary": "greenhousejuice",
+      "checked_at": "2026-10-29T10:23:11.772Z",
+      "gating": true,
+      "verdict": "OK",
+      "count": 9,
+      "field_presence": {
+        "id": 1,
+        "title": 1,
+        "url": 1
+      },
+      "elapsed_ms": 456,
+      "detail": "healthy: 9 records, key fields intact"
+    },
+    {
+      "source": "linkedin",
+      "family": "linkedin",
+      "canary": "software engineer",
+      "checked_at": "2026-10-29T10:23:12.228Z",
+      "gating": false,
+      "verdict": "OK",
+      "count": 10,
+      "field_presence": {
+        "title": 1,
+        "url": 1
+      },
+      "elapsed_ms": 604,
+      "detail": "healthy: 10 cards, key fields intact"
+    }
+  ]
+}
