@@ -93,3 +93,10 @@ Store adds Indeed, rotating proxies for high-volume pulls, and metered billing.
 ## License
 
 ISC.
+
+
+## Related tools (same maintained engine)
+
+- **[ats-jobs-scraper-cli](https://github.com/rezearcher/ats-jobs-scraper-cli)** — the ATS-only core without the LinkedIn merge, one row per open role.
+- **[jobs-mcp-server](https://github.com/rezearcher/jobs-mcp-server)** — the same feed as a Model Context Protocol tool for Claude Desktop, Cursor, Cline and other agents.
+- **[company-enrichment-cli](https://github.com/rezearcher/company-enrichment-cli)** — domain → one clean company record (firmographics, contacts, tech stack) plus a rolled-up hiring-intensity signal from the same ATS engine; buying-intent for sales/prospecting.
