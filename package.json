@@ -1,0 +1,30 @@
+{
+  "name": "unified-jobs-scraper-cli",
+  "version": "0.1.0",
+  "description": "One deduplicated jobs feed across company ATS boards and LinkedIn public postings. The same role posted in multiple places collapses to one record with a sources[] array. Zero dependencies, zero API keys.",
+  "type": "module",
+  "bin": {
+    "unified-jobs": "cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "scripts": {
+    "start": "node cli.js"
+  },
+  "keywords": [
+    "jobs",
+    "job-scraper",
+    "ats",
+    "greenhouse",
+    "lever",
+    "ashby",
+    "linkedin",
+    "deduplication",
+    "job-board",
+    "hiring",
+    "recruiting"
+  ],
+  "license": "ISC"
+}
