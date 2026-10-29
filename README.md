@@ -1,5 +1,7 @@
 # unified-jobs-scraper-cli
 
+[![source-freshness](https://github.com/rezearcher/unified-jobs-scraper-cli/actions/workflows/freshness.yml/badge.svg)](https://github.com/rezearcher/unified-jobs-scraper-cli/actions/workflows/freshness.yml)
+
 **One deduplicated jobs feed across company ATS boards and LinkedIn public postings — zero dependencies, zero API keys.**
 
 Most job scrapers give you one source. Run a few of them and you own the hard part:
@@ -66,6 +68,22 @@ that can't be matched confidently is kept on its own, never dropped.
 
 Public job postings only — company ATS public JSON and LinkedIn's public guest pages.
 No login, no cookies, no member data.
+
+## Maintained — live source health
+
+Job feeds drift silently: a renamed field returns rows with `null` titles, a moved
+endpoint returns zero — the run "succeeds" but the data is junk. A scheduled probe
+runs **daily** ([`.github/workflows/freshness.yml`](.github/workflows/freshness.yml)),
+hitting a large live canary per source and grading reachable / populated /
+schema-intact. The seven ATS adapters are hard-gated; LinkedIn's guest endpoint is
+advisory (it rate-limits cloud IPs, so a block never raises a false alarm — only a
+genuine card-HTML reshape does). On real drift the probe opens a tracking issue, so
+breakage is caught before it reaches your run. Run it yourself any time:
+
+```bash
+node health-check.mjs            # probe every source against live canaries
+node health-check.mjs ats        # ATS adapters only
+```
 
 ## Need more?
 

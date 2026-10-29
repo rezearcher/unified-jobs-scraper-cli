@@ -1,0 +1,98 @@
+name: source-freshness
+
+# Self-maintaining moat: every day this probes all source inputs — the seven ATS
+# adapters (hard-gated) and the LinkedIn public guest search (advisory, since its
+# guest endpoint rate-limits cloud IPs) — against large live canaries, grading
+# reachable / populated / schema-intact. A real upstream reshape exits non-zero
+# and opens (or updates) a single tracking issue, so breakage is caught here,
+# before it reaches a real run, and the signal reaches a maintainer.
+
+on:
+  schedule:
+    - cron: '23 6 * * *' # daily 06:23 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: source-freshness
+  cancel-in-progress: false
+
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Probe sources against live canaries
+        id: probe
+        run: node health-check.mjs
+
+      - name: Upload health status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: health-status
+          path: health-status.json
+          if-no-files-found: ignore
+
+      - name: Open or update drift issue
+        if: failure() && steps.probe.conclusion == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let report = {};
+            try { report = JSON.parse(fs.readFileSync('health-status.json', 'utf8')); } catch (_) {}
+            const failed = (report.gating_failures || []).join(', ') || 'unknown';
+            const rows = (report.results || [])
+              .map(r => `| ${r.source} | ${r.verdict} | ${r.count ?? '-'} | ${r.gating ? 'gate' : 'advisory'} | ${r.detail || ''} |`)
+              .join('\n');
+            const run = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const body = [
+              `Source freshness probe failed on **${report.generated_at || new Date().toISOString()}**.`,
+              ``,
+              `Gate failure on: **${failed}**`,
+              ``,
+              `| source | verdict | count | role | detail |`,
+              `|---|---|---|---|---|`,
+              rows,
+              ``,
+              `[Workflow run](${run})`,
+            ].join('\n');
+
+            const label = 'source-drift';
+            try {
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner, repo: context.repo.repo,
+                name: label, color: 'b60205',
+                description: 'A job source failed its live freshness probe',
+              });
+            } catch (_) {}
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: label,
+            });
+
+            if (existing.data.length) {
+              const num = existing.data[0].number;
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: num, body,
+              });
+              core.notice(`Updated existing drift issue #${num}`);
+            } else {
+              const created = await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title: `Source drift detected: ${failed}`,
+                body, labels: [label],
+              });
+              core.notice(`Opened drift issue #${created.data.number}`);
+            }
