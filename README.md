@@ -1,8 +1,8 @@
-# unified-jobs-scraper-cli
+# Greenhouse Jobs Feed CLI — deduplicated across 7 more ATS + LinkedIn, no API key
 
 [![source-freshness](https://github.com/rezearcher/unified-jobs-scraper-cli/actions/workflows/freshness.yml/badge.svg)](https://github.com/rezearcher/unified-jobs-scraper-cli/actions/workflows/freshness.yml)
 
-**One deduplicated jobs feed across company ATS boards and LinkedIn public postings — zero dependencies, zero API keys.**
+**One deduplicated jobs feed from any company's Greenhouse board (plus seven more ATS and LinkedIn public postings) — zero dependencies, zero API keys.**
 
 Most job scrapers give you one source. Run a few of them and you own the hard part:
 the same role shows up on LinkedIn, on Indeed, and on the company's own careers page,
